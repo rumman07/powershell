@@ -1,0 +1,8 @@
+> $PSVersionTable  #Give the version of the powershell currently running
+
+#Switching between powershell versions
+> powershell -version 3.0  #changes the powershell version to 2.0 
+> PSVersionTable  #to check the current version of powershell runnung
+> powershell -version 3.0  # switching to powershell version 3.0
+> $PSVersionTable  #checking the powershell version 
+> Start-Process Powershell -verb runas   # to start powershell as administrator from the commandline 
