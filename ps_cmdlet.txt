@@ -6,3 +6,26 @@
 > powershell -version 3.0  # switching to powershell version 3.0
 > $PSVersionTable  #checking the powershell version 
 > Start-Process Powershell -verb runas   # to start powershell as administrator from the commandline 
+
+##3 steps before using Powershell
+> Update-Help  #Updates the powershell makes sure you have the latest and greates version 
+> Update-Help -Verbose -Force -ErrorAction SilentlyContinue 
+##Enable Powershell script execution. As a security precaution the ability to execute powershell script is disabled by default 
+> Get-ExecutionPolicy
+> Set-ExecutionPolicy RemoteSigned   #Setting the execution policy
+
+##On each computer that you want remote commands to be executed on, run the following Powershell command except WS 2012 its set by default
+> Enable-PSRemoting
+
+##A Powershell profile is a text file that is automatically loaded everytime powershell is started. Poweeshell profiles are used to
+##persist certain customization like -Aliases, -Functions, -Variables. You dont actually have a Powershell profile untill you create one
+##To create a Powershell profile create a text file with the specified name and in the specified location based on the type of profile
+##you want to use. There are 4 types of profile in Powershell -AllUsersAllHosts: Applies to all users and all shells lacated@%windir%\
+##System32\WindowsPowerShell\v1.0\profile.ps1  -AllUsersCurrentHost: Applies to all users, but only the Microsoft.Powershell shell
+##located@%windir%\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1  -CurrentUserAllHosts: Applies only to the current user, but all
+##shells located@%UserProfile%\My Documents\WindowsPowerShell\profile.ps1  -CurrentUserCurrentHost: Applies only to the current user and the
+##Microsoft.Powershell shell located@%UserProfile%\My Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1 
+
+> $Profile  # built in variable dispalys the profile location but the path and the profile do not exists there until you create them
+> Test-Path $Profile  # tells you if you have a profile established
+> New-Item -path $profile -type file -force  # to create a profile 
