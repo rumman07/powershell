@@ -29,3 +29,58 @@
 > $Profile  # built in variable dispalys the profile location but the path and the profile do not exists there until you create them
 > Test-Path $Profile  # tells you if you have a profile established
 > New-Item -path $profile -type file -force  # to create a profile 
+
+##Cmdlet are commands in the Powershell environment
+##Cmdlets perform an action and typically return a Microsoft .Net Framework object to the next command in the pipeline
+##Cmdlets are designed to have similar structure and syntax: Verb-Noun -parameter arguement 
+##The verb describes the action that is to take place
+##The noun describes the target of that action 
+##The parameter is an optional characteristic or property of the noun 
+##Powershell parameter is always preceded by a hyphen (-)
+##The arguement is a value that can be provided for a parameter 
+
+##There are six common cmdlet verbs
+##Get     #Queries a specific object
+##Set     #Modifies the settings of an object
+##Enable  #Enables a settings
+##Disable #Disables a setting 
+##New     #Creates a new instance of an item 
+##Remove  #Removes an instance of an item 
+##There are many other verbs  Add, Clear, Export, Format, Import, Invoke, etc
+##Anything in the [] is optional 
+> Get-Process [[-name] string[]] [-ComponentName string[]] [-File VersionInfo] [-Module] [CommonParameters]
+> Get-Process -name powerpnt 
+> Get-Process   #returns a list of all the processes running in the system 
+> Get-Help 
+> Get-Help Get-Process 
+
+> Get-Help <cmdlet>  ## to display information on one page
+> Help <cmdlet>
+
+##<cmdlet> -?  # displays information on multiple pages
+
+> Get-Help <cmdlet> -examples  # to see example of the command
+> Get-Help <cmdlet> -detailed  # For more information 
+> Get-Help <cmdlet> -full 
+> Get-Help <cmdlet> -ShowWindow
+> Get-Command   # returns a list of the the commands in the version you are running 
+> Get-Command | more   # gives information page by page by hitting the space key
+> Get-Command -type cmdlet   #returns a list of only cmdlets
+
+> Format-Wide     #Displays only the default property of an object by default
+> Format-List     #Displays an object in the form of a listing, with each property labeled and displayed on a sepaerate line 
+> Format-Table    #Produces a tabular layout
+> Format-Custom   #Formats the output of a command as defined in an alternative view
+
+> Get-Process | Format-Wide 
+> Get-Process | Format-Wide -column 6
+> Get-Process | Format-List
+> Get-Process -name powershell | Format-List -Property ProcessName,FileVersion,StartTime,Id
+> Get-Process -name powershell | Format-List -Property *
+> Get-Process -name powershell | Format-Table
+> Get-Process -name powershell | Format-Table -Property Path,Name,Id,Company -Autosize
+> Get-Process -name powershell | Format-Table -Wrap -Property Name,Id,Company,Path  
+> Get-Process -name powershell | Format-Table -Wrap -Autosize -Property Name,Id,Path -GroupBy Company 
+
+##The Get-Member cmdlet retrives information about .Net objects. It displays the properties and methods of the object. The members of the object
+> $m | Get-Member -membertype methods 
