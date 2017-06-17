@@ -86,4 +86,37 @@
 
 > Get-ChildItem  ## Gets the files and folders in a file system drive.  Aliases ls,dir,gci
 > Get-ChildItem -recurse  ## Gets the files and folders in a file system drive recursively
-> gci c:\*.* -include *.txt ## Searches all the locations and returns only text files  
+> gci c:\*.* -include *.txt ## Searches all the locations and returns only text files 
+> Get-ChildItem | Sort-Object  ## Retrieves child items in the location. Pipes the item to the next cmdlet. Sorts objects by the name property by default  
+
+## $_ is an object that is populated with the current item thats in the pipeline 
+
+> Get-Service | Where-Object {$_.DisplayName -Match "MS"} 
+
+## To run a script make sure Execution Policy is set to RemoteSigned and type the path and name of the script file. The path is required even
+## the script is located in the current directory. This is a deliberate security measure from MIcrosoft to make it more difficult for malicious 
+## code to run scripts and also to make it more difficult to inadvertently execute a script
+
+> Start-Sleep <TimeInSec>
+
+## Launching a powershell script from desktop shortcut
+## 1) Create a shortcut 2) Right click the shortcut and choose properties 3) Click on the shortcut tab 4) In the target field enter:
+## %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File "C:\path\to\powershellScript.ps1"
+
+## If the variable contains spaces it must be enclosed in braces {}. Example: ${Variable Name} 
+## Powershell will determine the data-type of the variable for you and it may change it as well
+## We can explicitly set variables to a specific data type. Powershell will not change explicitly set data types. Examples: [int]$ml=7
+## [System.Int32]$a=4, [datetime], [string], [char], [double], [int], [boolean] 
+
+> $serverIP='10.10.10.10'
+> Set-Variable serverIP -option Readonly  # this sets the value of the variable to the desired value so that no one can change it
+> Set-Variable serverIP -option none -force  # this undoes the Readonly option
+> Remove-Variable variableName -force 
+
+## A constant is a write protected variable. Once the value is set it cannot be easily changed. The New-Variable cmdlet is used to create constant in Powershell
+> Set-Variable variableName -option Constant -value '12.12.12.12'  #to create a constant
+
+## Comparison operators: -eq -lt -gt, -ge, -le, -ne    # These operators can be used to compare strings
+## -ieq  # To perform case-insensitive comparisons and is the default
+## -ceq  # To perform case sensitive comparisons
+## Logical operators: -not ! -and -or
