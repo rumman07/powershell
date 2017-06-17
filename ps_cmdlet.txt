@@ -83,3 +83,7 @@
 ##The Get-Member cmdlet retrives information about .Net objects. It displays the properties and methods of the object. The members of the object
 > $m | Get-Member 
 > $m | Get-Member -membertype methods 
+
+> Get-ChildItem  ## Gets the files and folders in a file system drive.  Aliases ls,dir,gci
+> Get-ChildItem -recurse  ## Gets the files and folders in a file system drive recursively
+> gci c:\*.* -include *.txt ## Searches all the locations and returns only text files  
