@@ -187,3 +187,75 @@
 > "Microsoft" -match "soft"
 > "Software" -cmatch "soft"   #This will return False since its a case sensitive match  
 
+#Pattern match is based on regular expression character:
+# . (period) matches a single character 
+#[aeiou] matches at least one character specified within the brackets
+#[b-f] matches at least one character specified within the range 
+#[^bcdef] matches any character except those within the brackets 
+#^ matches characters located at the begining of a string 
+#$ matches characters located at the end of a string 
+#* matches zero or more occurances of the preceeding character
+#? matches zero or one occurance of the preceeding character 
+#\ matches the character following the escape (\) character 
+
+#Regular Expression qualifiers : 
+#* must match zero or more times
+#+ must match one or more times 
+#? must match no more tha one time 
+#{n} must match n times 
+#{n,} must atleast n matches 
+#{n,m} must match atleast n times, but no more than m times 
+
+#Regular Expression shortcuts : 
+#\d matches any decimal digit, same as [0-9]
+#\w matches any word character, same as [0-9A-Za-z] 
+#\D matches any non digit 
+#\W matches any non-word charcter such as space  
+#\S matches any non whitespace character 
+
+> Get-Help about_regular_expression
+
+#Regex match ipaddress 
+> $ip="192.168.120.15"
+> $rx="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} 
+> $ip -match $rx 
+
+#Regex match SSN
+> $ssn="111-23-5678"
+> $rxssn="^\d{3}-\d{2}-\d{4}$"
+> $ssn -match $rxssn 
+
+#Escape character in powershell `
+> Write-Host `n`n`n`n`t`t`t"Hello"`n`n`n`n`n (grave accent)
+
+#Different implementation of the escape character 
+> ` at the end of a command line to continue the command on the next line 
+> `$ to include a $ in the output
+> `0 means NULL ($null is preffered)
+> `a makes an alert sound 
+> `b means backspace
+> `f means formfeed (only affects printed documents)
+> `n means new line 
+> `r means carriage return
+> `t means horizontal tab
+> `v means vertical tab (only affects printed document) 
+> `' means single quote
+> `" means double quote
+
+#The # is the single line comment symbol in Powershell 
+
+#Parameters allow us to provide the script with additional information
+#Parameters are easily added to script using the param block
+#There are two forms :
+#Simple form: 
+> Param([string]$variableName)
+#Full form: 
+> Param(
+  [Parameter(Mandatory=$true)]
+  [string]$variableName)  
+
+
+
+
+
+
