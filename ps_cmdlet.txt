@@ -1,7 +1,7 @@
 > $PSVersionTable  #Give the version of the powershell currently running
 
 #Switching between powershell versions
-> powershell -version 3.0  #changes the powershell version to 2.0 
+> powershell -version 3.0  #changes the powershell version to 3.0 
 > $PSVersionTable  #to check the current version of powershell runnung
 > Start-Process Powershell -verb runas   # to start powershell as administrator from the commandline 
 
@@ -61,6 +61,7 @@
 > Get-Help <cmdlet> -detailed  # For more information 
 > Get-Help <cmdlet> -full 
 > Get-Help <cmdlet> -ShowWindow
+> Get-Help <cmdlet> -online
 > Get-Command   # returns a list of the the commands in the version you are running 
 > Get-Command | more   # gives information page by page by hitting the space key
 > Get-Command -type cmdlet   #returns a list of only cmdlets
@@ -119,4 +120,70 @@
 ## Comparison operators: -eq -lt -gt, -ge, -le, -ne    # These operators can be used to compare strings
 ## -ieq  # To perform case-insensitive comparisons and is the default
 ## -ceq  # To perform case sensitive comparisons
-## Logical operators: -not ! -and -or
+## Logical operators: -not ! -and -or 
+
+#######IF Statement#######################
+> $day = Get-Date
+> If (day.day -eq 12)
+  {
+     Write-Host "Today"
+  }
+  else
+  {
+    Write-Host "Not Today"
+  }
+############Syntax:
+> If (condition) {run this code block}
+
+#Syntax ElseIf:
+> If (condition) {run this code block}
+> ElseIf (condition) {run this code block}
+> You cam add more elseif to test the condition
+>
+
+############Syntax: ElseIf
+> If (condition) {run this code block}
+> ElseIf (condition) {run this code block}
+>
+>
+> Else {run this code block} 
+
+#Looping is a basic programming process that allows us to execute the same command multiple times 
+#For Each-Object : Loops through a collection of objects
+#For : Executes a specific number of times 
+#While : Executes as long as a condition remains true; tests the condition first
+#Do While : Executes once then tests the condition then repeats as long as the condition remains true 
+#Do Until : Executes once and repeats until a condition is true
+
+########Syntax For Loops
+> $a=5,6,7,8,9
+> $a | ForEach {write-host $_}
+
+> ForEach ($value in $a)
+> {write-host $value}
+
+> $a="Mark","Bob","Jane"
+> ForEach ($value in $a)
+> {write-host $value} 
+
+> $a | ForEacH {write-host $_} 
+
+> For ($a; $a -le 5; $a++) {write-host $a}
+
+#Do While Loop
+> $a=1
+> Do {write-host $a; $a++} 
+> While ($a -lt 5}
+
+> $b=1
+> Do {write-host $b; $b++}
+> Until ($b -gt 5)
+
+
+###Regex. Regular expression is a pattern that is used to locate matching data
+###Regular expression cam match data using two methods : -Literal Matches -Pattern Matches 
+
+#Syntax : Literal Match
+> "Microsoft" -match "soft"
+> "Software" -cmatch "soft"   #This will return False since its a case sensitive match  
+
