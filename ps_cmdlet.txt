@@ -217,7 +217,7 @@
 
 #Regex match ipaddress 
 > $ip="192.168.120.15"
-> $rx="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} 
+> $rx="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
 > $ip -match $rx 
 
 #Regex match SSN
