@@ -51,7 +51,7 @@
 > Get-Process   #returns a list of all the processes running in the system 
 > Get-Help 
 > Get-Help Get-Process 
-
+> Get-ChildItem -force    #To view the hidden files and system files 
 > Get-Help <cmdlet>  ## to display information on one page
 > Help <cmdlet>
 
@@ -254,8 +254,75 @@
   [Parameter(Mandatory=$true)]
   [string]$variableName)  
 
+####What is a Provider?
+#A Windows Powershell provider allows any data store to be exposed like a file system as if it were a mounted drive. A .Net assembly that exposes the data 
+#in a simplified more familiar structure. Simplifies accessing external data outside the PowerShell environment. Powershell providers are the 
+#Powershell versio of the system drives. Providers are often reffered to as PSDrives. We actually connecto to a provider via PSDrives. Most providers 
+#have only one PSDrive. The FileSystem provider has as many PSDrives as there are drives on the system. The Registry provider has two PSDrives (HKLM and HKCU)
+#You can create a custom PSDrive to serve as a shortcut to a system resource. PSDrives are a result of the functionalities of Powershell providers 
+#Available Powershell providers : Alias; Environment; FileSystem; Function; Registry; Variable; Certificate; WSMan (Web Services Management configuration information)
 
+> Get-PSProvider    #Lists all the available Providers
+> Get-PSDrive       #Lists all the PSDrives that are avilable in the current Provider environment
+> Set-Location Alias:  #To mount a PSDrive to access the Alias provider. To get to a provider the colon at the end of the provider name is very important
+> dir   #To list all the Aliases on the machine
+> New-PSDrive -name <nameofprovider> -PSProvider FileSystem -Root (resolve-path ~/*documents) 
+> Set-Location nameofprovider: 
+> dir 
+###Once you move to a PSDrive provided by one of the providers you utilize the same Powershell commands and their parameters to perform familiar tasks
+###The FileSystem Provider is accessed when the Powershell is launched and is the by default. Allows to create, retrive, and remove files and folders 
+###Part of the data provided by the FileSystem provider is the mode column 
 
+> Set-Location Alias:
+> New-Alias <aliaName> <cmdlet>   # To create a new alias for the cmdlet 
 
+###The Variable Provider shows us which Powershell and user defined variables are available. Powershell providers are preceeded by the $ however the
+###list of variables in the Variable Provider do not include the $ as the first character add the $ to access the variables in Powershell code and scripts
 
+###Function is a named block of code. You can create your own functions. Powershell has a set of functions built-in 
+> Set-Location Function:   #This will access the function provider and mount the Powershell function drive 
+> dir 
+> Get-Content <function-Name>  #Displays the code running in the background for that function 
 
+###The Environment Provider exposes all the environment variables defined on the system 
+> Set-Location Env: 
+> gci
+> gci <env_variable_name> | Format-List *   #The * will give more information on the Env variable in the Format-List format
+
+> Set-Location HKLM:\Software  #To access the available software registry in HKLM
+
+###The Certificate provider provides access to X.509 certificates stores and certificates 
+> Set-Location Cert: 
+> gci
+> gci -recurse
+> gci -path cert:\LocalMachine  
+> gci -path cert:\LocalMachine\AuthRoot
+> gci -recurse | Export-CSV "C:\MLCerts.csv"
+> Invoke-Item "C:\MLCert.csv"        
+> Invoke-Item "${pwd}\fileName.extension"   #Using string interpolation to get value from a variable and concatenate with the string following 
+
+#Files and Folders
+> GCI -Path "\path\to\folder" -Recurse -Include *.exe | Where-Object -FilterScript {($_.LastWriteTime -gt "2014-01-01")} 
+> GCI > <path\to\file>.txt
+> New-Item <path\to\file>.txt -type file
+> Set-Content <path\to\file>.txt "Type the content here..."
+> Add-Content <path\to\file>.txt "Type the content here..."
+> GCI | Out-File <path\to\file>.txt 
+> Get-Content <path\to\file>.txt 
+> $a = Get-Content <path\to\file>.txt
+> $a 
+
+#Creating HTML File 
+> Get-Service | Where-Object {$_.status -eq "running"}
+> Get-Service | Where-Object {$_.status -eq "running"} | ConvertTo-HTML Name, DisplayName, Status | Set-Content <path\to\file>.html           
+
+#Creating and Reading from xml file
+> GCI | Export-CliXML <\path\to\file>.xml
+> $x = Import-CliXML <\path\to\file>.xml
+> $x 
+
+#Write and read data from csv file
+> Get-Service | Export-CSV "\path\to\file"
+> $s = Import-CSV \path\to\file
+> $s
+> Invoke-Item \path\to\file
