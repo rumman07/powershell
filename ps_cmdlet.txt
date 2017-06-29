@@ -257,13 +257,13 @@
 ####What is a Provider?
 #A Windows Powershell provider allows any data store to be exposed like a file system as if it were a mounted drive. A .Net assembly that exposes the data 
 #in a simplified more familiar structure. Simplifies accessing external data outside the PowerShell environment. Powershell providers are the 
-#Powershell versio of the system drives. Providers are often reffered to as PSDrives. We actually connecto to a provider via PSDrives. Most providers 
+#Powershell version of the system drives. Providers are often reffered to as PSDrives. We actually connect to a provider via PSDrives. Most providers 
 #have only one PSDrive. The FileSystem provider has as many PSDrives as there are drives on the system. The Registry provider has two PSDrives (HKLM and HKCU)
 #You can create a custom PSDrive to serve as a shortcut to a system resource. PSDrives are a result of the functionalities of Powershell providers 
 #Available Powershell providers : Alias; Environment; FileSystem; Function; Registry; Variable; Certificate; WSMan (Web Services Management configuration information)
 
 > Get-PSProvider    #Lists all the available Providers
-> Get-PSDrive       #Lists all the PSDrives that are avilable in the current Provider environment
+> Get-PSDrive       #Lists all the PSDrives that are available in the current Provider environment
 > Set-Location Alias:  #To mount a PSDrive to access the Alias provider. To get to a provider the colon at the end of the provider name is very important
 > dir   #To list all the Aliases on the machine
 > New-PSDrive -name <nameofprovider> -PSProvider FileSystem -Root (resolve-path ~/*documents) 
