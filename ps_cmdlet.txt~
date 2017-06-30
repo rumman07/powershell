@@ -332,5 +332,5 @@
 > Get-WmiObject Win32_bios
 > Get-CimInstance Win32_bios
 > Get-Wmiobject Win32_processor
-> Get-CimInstance Win32_procesor
+
 ###OneGet
