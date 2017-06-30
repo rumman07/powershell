@@ -326,3 +326,11 @@
 > $s = Import-CSV \path\to\file
 > $s
 > Invoke-Item \path\to\file
+
+###WMI -Windows Management Instrumentation exposes information on almost every aspect of a Windows Computer i.e. Operating System, Hardware, Software
+###Powershell provides two ways of working with WMI : WMI cmdlets and CIM cmdlets 
+> Get-WmiObject Win32_bios
+> Get-CimInstance Win32_bios
+> Get-Wmiobject Win32_processor
+
+###OneGet
