@@ -254,6 +254,15 @@
   [Parameter(Mandatory=$true)]
   [string]$variableName)  
 
+> Param(
+[Parameter(Mandatory=$true)]
+[string]$Path,
+
+[Parameter(Mandatory=$true)]
+[string]$LastWrite 
+)   
+  
+  
 ####What is a Provider?
 #A Windows Powershell provider allows any data store to be exposed like a file system as if it were a mounted drive. A .Net assembly that exposes the data 
 #in a simplified more familiar structure. Simplifies accessing external data outside the PowerShell environment. Powershell providers are the 
