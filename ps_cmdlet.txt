@@ -343,3 +343,8 @@
 > Get-Wmiobject Win32_processor
 > Get-CimInstance Win32_procesor
 ###OneGet
+
+###Configure winhttp proxy:
+netsh winhttp import proxy source=ie
+or
+NetSH WinHTTP Set Proxy proxy-server="ProxyServer:8080"
