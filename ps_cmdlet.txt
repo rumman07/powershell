@@ -330,7 +330,7 @@
 > $x = Import-CliXML <\path\to\file>.xml
 > $x 
 
-#Write and read data from csv file
+#Write and read data from CSV file
 > Get-Service | Export-CSV "\path\to\file"
 > $s = Import-CSV \path\to\file
 > $s
@@ -348,3 +348,74 @@
 netsh winhttp import proxy source=ie
 or
 NetSH WinHTTP Set Proxy proxy-server="ProxyServer:8080"
+
+
+*****************PowerShell Scripting***************************
+Import-Module ..\..\Documents\WindowsPowerShell\Modules\Functions-ChefHelpers\Functions-ChefHelpers.psm1 -Force
+
+
+ <#
+.SYNOPSIS
+  Converts the output of a knife runs show [run_id] call for the provided run id 
+  into object form for easier consumption
+.DESCRIPTION
+  This helper function relies on the presence of the knife reporting plugin
+  https://github.com/chef/knife-reporting
+.PARAMETER RunId
+  The unique identifier for a run on the chef server
+  (To get the most recent run for a given server use Get-NodeStatus [node name])
+.OUTPUTS
+  Returns a 'Node' object with the following properties
+    .Name         [string] The name of the node on the server (should match the input)
+    .RunId        [string] The unique id of the last run used for getting a full report 
+    .StartTime    [string] The time at which the run was started
+    .Status       [string] The success or failure indicator
+    .Success      [bool] Indicator for if the run was successful or not
+    .ErrorMessage [string] Short description of what went wrong ($null on success)
+    .ErrorDetails [string] Full error output ($null on success)
+#>
+function Get-RunStatus()
+{
+  param(
+    [Parameter(Mandatory=$true,Position=0)]
+    [string]$RunId
+  )
+  
+  $ShowOutput    = PsKnife "runs" "show" $RunId "-F" "json"
+  $ShowOutString = $ShowOutput -Join [Environment]::NewLine | Out-String
+  $ShowObject    = ConvertFrom-Json $ShowOutString
+
+  if( $ShowObject.run_detail -eq $null )
+  {
+    throw "unable to determine run status for [ $($RunId) ]"
+  }
+
+  $Success = $false
+  if( $ShowObject.run_detail.status -eq "success" )
+  {
+    $Success = $true
+  }
+
+  $RunObject = New-Object PSObject 
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "Name" -Value $ShowObject.run_detail.node_name
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "RunId" -Value $ShowObject.run_detail.run_id
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "StartTime" -Value $ShowObject.run_detail.start_time
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "Status" -Value $ShowObject.run_detail.status
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "Success" -Value $Success
+
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "ErrorMessage" -Value $null
+  Add-Member -InputObject $RunObject -MemberType NoteProperty -Name "ErrorDetails" -Value $null
+
+  # run_detail.data is empty on successes, so don't read it 
+  # run_detail.data.exception.class has the output we want
+  # run_detail.data.exception.description.title has a short message for it
+  if( $RunObject.Success -eq $false )
+  {
+    $RunObject.ErrorMessage = $ShowObject.run_detail.data.exception.description.title
+    $RunObject.ErrorDetails = $ShowObject.run_detail.data.exception.class 
+  }
+
+  return $RunObject
+}
+
+*****************************************************************************************************************
