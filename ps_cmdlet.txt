@@ -347,7 +347,20 @@
 ###Configure winhttp proxy:
 netsh winhttp import proxy source=ie
 or
-NetSH WinHTTP Set Proxy proxy-server="ProxyServer:8080"
+NetSH WinHTTP Set Proxy proxy-server="http://corppac.walgreens.com:8080"
+
+****************Remote Login*******************************************************************************************
+> Get-Service <servicename>  #verify that the status of a service
+> Start-Service <servicname>  #start a service 
+> Enable-PSRemoting 
+#To enable authentication, you need to add the remote computer to the list of trusted hosts for the local computer in WinRM. To do so, type: 
+> winrm s winrm/config/client '@{TrustedHosts="RemoteComputer"}'
+#Here, RemoteComputer should be the name of the remote computer, such as:
+> winrm s winrm/config/client '@{TrustedHosts="CorpServer56"}'
+#If you cannot connect to a remote host, verify that the service on the remote host is running and is accepting requests by running the following command on the remote host:
+> winrm quickconfig  #This command analyzes and configures the WinRM service
+> winrs -r:http://sp-s8nl-vccapp.walgreens.com:5985 -u:rahmedsd\administrator "dir"
+
 
 
 *****************PowerShell Scripting***************************
