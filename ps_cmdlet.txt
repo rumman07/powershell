@@ -362,6 +362,83 @@ NetSH WinHTTP Set Proxy proxy-server="http://corppac.walgreens.com:8080"
 > winrs -r:http://sp-s8nl-vccapp.walgreens.com:5985 -u:rahmedsd\administrator "dir"
 
 
+***************************ERROR HANDLING*******************************************************************************************
+$Error  #is the global error object variable. When an error occurs it is written to the global $Error object variable 
+$Error.Count  #To view how many error occurred in the current powershell session we can call the Count property from the $Error object 
+$Error.GetType() #We can use the GetType() method from the object variable to see what sort of data type the error variable is 
+$Error[0].Exception #Depending on the type of error we can either call the Exception or Message property to view the error messsage by its index number 
+$Error[0].Message 
+
+#Throw a command not found exception error
+Get-ThisDoesNotExist
+#View $error variable. Execute the variable to see the error message that was thrown 
+$Error
+#View Properties and methods of $error variable. To see how many erros were thrown in the current session 
+$Error.count
+#View DataType of $error variable. The data type of $Error is an array list. Array list have an index number with a value. The errors that
+#are recored are indexed in reverse order i.e. the latest error will be indexed at 0 and the oldest error will be moved up the index. The
+#latest error always have the index of zero 
+$Error.GetType().Name 
+#Show $error variable exception message. To only see the description of the $Error variable  
+$Error[0].Exception 
+#Show Error variable exception type. The name property gives the name of the exception 
+$Error[0].Exception.GetType().Name
+
+#Throw a parameter binding exception error
+$New-Object -PropertyDoesNotExist
+$Error.count  #show number of error that have occured 
+$Error[0].Exception.GetType().Name  #Show $Error variable exception type 
+
+#Throw a Runtime Exception error
+$Error[1].Message.GetType().Name 
+$Error.Count  #Show number of error that have occured 
+$Error[0].Exception.GetType().Name  #Show $Error variable exception type 
+
+#Call index of error message
+$Error[0]
+$Error[1]
+$Error[2]
+
+#Throw a parameter Binding validation Exception 
+New-Object $objNew
+$Error[0].Exception.GetType().Name 
+
+###Error Action Preference for each session is set to continue 
+$ErrorActionPreference   #To check the value of $ErrorActionPreference
+$ErrorActionPreference = "stop"
+$ErrorActionPreference = "silentlycontinue" 
+
+#Error Action Parameter 
+Get-ChildItem "H:\DoesNotExists" -ErrorAction Inquire
+Get-ChildItem "H:\DoesNotExists" -ErrorAction "Ignore"
+Get-ChildItem "H:\DoesNotExists" -ea silentlycontinue
+
+########Try Catch and Finally block##############################
+#In the Try block you can specify any cmdlet you would like to execute
+#Catch block will start to execute when error is thrown 
+#The finally block will always run and is useful to clean up variables or objects stored in memory. 
+#You will need to specify atleast the Try and Catch block the Finally block is optional  
+
+Try 
+{
+   new-object $objNew
+}
+Catch
+{
+   Write-Host "Caught a system exception"
+}
+Finally 
+{
+   Write-Host "Clean up"
+}
+
+#We can use more than one catch block to handle different errors. Only the first error that occurs will be handled you should use a seperate
+#try catch and finally block for each cmdlet that could produce an error 
+
+
+
+
+
 
 *****************PowerShell Scripting***************************
 Import-Module ..\..\Documents\WindowsPowerShell\Modules\Functions-ChefHelpers\Functions-ChefHelpers.psm1 -Force
