@@ -427,6 +427,10 @@ Catch
 {
    Write-Host "Caught a system exception"
 }
+Catch [DevideByZeroException]
+{
+     Write-Host "Caught a divide by zero exception"
+}
 Finally 
 {
    Write-Host "Clean up"
