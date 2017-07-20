@@ -512,4 +512,28 @@ function Get-RunStatus()
   return $RunObject
 }
 
-*****************************************************************************************************************
+*************************************Creating Custom Powershell Objects************************************************************************
+#Creating a simple custom powershell object in its simplest form 
+
+#To create an object first we have to define it
+$object = New-Object -TypeName PSObject
+#Then the next step is to add inputobject membertype name and value to the newly initiated object
+Add-Member -InputObject $object -MemberType NoteProperty -Name food -Value "What is you fav food?"
+Add-Member -InputObject $object -MemberType NoteProperty -Name car -Value "what is your fac car?"
+Add-Member -InputObject $object -MemberType NoteProperty -Name house -Value "what is your fav house?"
+
+$object | Format-List
+
+##################Creating a custom powershell object with array and for loop############################################
+$arr=@()
+for($i=0; $i -le 9; $i++)
+{
+   $obj = New-Object -TypeName PSObject
+   Add-Member -InputObject $obj -MemberType NoteProperty -Name Index -Value "$($i)"
+   Add-Member -InputObject $obj -MemberType NoteProperty -Name Id -Value "$($i+1)"
+   Add-Member -InputObject $obj -MemberType NoteProperty -Name Name -Value "Name $($i+1)" 
+   $arr= $arr + $obj 
+}
+
+$arr.Count
+$arr
