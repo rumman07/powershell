@@ -537,3 +537,18 @@ for($i=0; $i -le 9; $i++)
 
 $arr.Count
 $arr
+
+###Another way to add property to an object is to create a hash table variable 
+$arr=@()
+for($i = 0; $i -le 9; $i++){
+     
+	 $hash = {
+	            Index = $id
+				Id = "Id $($i + 1)"
+				Name = "Name $($i + 1)"
+			 }
+	 $obj = New-Object -TypeName PSObject -Property $hash
+	 $arr+=$obj 
+}
+$arr.Count 
+$arr 
