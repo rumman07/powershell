@@ -552,3 +552,29 @@ for($i = 0; $i -le 9; $i++){
 }
 $arr.Count 
 $arr 
+
+######################ConvertTo-Json and ConvertFrom-Json##########################################
+#ConvertTo-Json
+Get-Date "200-01-01" | Select-Object -Property * | ConvertTo-Json 
+
+$objDate=(Get-Date "2000-01-01") | Select-Object -Property *
+$jsonDate=ConvertTo-Json -InputObject $objDate 
+$jsonDate 
+
+ConvertTo-Json -InputObject (Get-Date "2000-01-01" | Select-Object -Property *) 
+
+#ConvertFrom-Json with web request 
+$jsonRequest=Invoke-WebRequest -Uri http://freegeoip.net/json/1.1.1.1
+$jsonRequest.Content
+
+$objJson=$jsonRequest | ConvertFrom-Json 
+$objJson.GetType().Name 
+
+$objJson.country_name
+$objJson.time_zone 
+
+#ConvertFrom-Json with array 
+Get-Content C:\Users\rumman\Desktop\DevOps\powershell\test.json 
+$objJson=Get-Content C:\Users\rumman\Desktop\DevOps\powershell\test.json | ConvertFrom-Json
+$objJson 
+$objJson.phoneNumber[0..1] 
