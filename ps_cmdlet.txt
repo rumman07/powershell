@@ -543,7 +543,7 @@ $arr=@()
 for($i = 0; $i -le 9; $i++){
      
 	 $hash = {
-	            Index = $id
+	            Index = $i
 				Id = "Id $($i + 1)"
 				Name = "Name $($i + 1)"
 			 }
