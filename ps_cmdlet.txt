@@ -360,10 +360,10 @@ NetSH WinHTTP Set Proxy proxy-server="http://corppac.walgreens.com:8080"
 #If you cannot connect to a remote host, verify that the service on the remote host is running and is accepting requests by running the following command on the remote host:
 > winrm quickconfig  #This command analyzes and configures the WinRM service
 > winrs -r:http://sp-s8nl-vccapp.walgreens.com:5985 -u:rahmedsd\administrator "dir"
-> Env:http_proxy
-> Env:http_proxy="http://corppac.wagreens.com"
-> Env:http_proxy
- $Env:http_proxy="http://corppac.walgreens.com:8080"
+> $Env:http_proxy
+> $Env:http_proxy="http://corppac.walgreens.com:8080"
+
+
 ***************************ERROR HANDLING*******************************************************************************************
 $Error  #is the global error object variable. When an error occurs it is written to the global $Error object variable 
 $Error.Count  #To view how many error occurred in the current powershell session we can call the Count property from the $Error object 
