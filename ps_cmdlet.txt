@@ -158,6 +158,7 @@
 ########Syntax For Loops#####################
 > $a=5,6,7,8,9
 > $a | ForEach {write-host $_}
+> $a | %{knife runs list $_ -r 1}   #Shortcut for ForEach to loop over each element in an object
 
 > ForEach ($value in $a)
 > {write-host $value}
