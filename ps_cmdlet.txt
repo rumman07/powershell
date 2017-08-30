@@ -1,3 +1,9 @@
+-begin
+HOME                           C:\Users\rahmedsd
+HOMEDRIVE                      C:
+HOMEPATH                       \Users\rahmedsd
+=end 
+
 > $PSVersionTable  #Give the version of the powershell currently running
 
 #Switching between powershell versions
