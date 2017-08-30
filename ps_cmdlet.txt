@@ -587,3 +587,18 @@ Get-Content C:\Users\rumman\Desktop\DevOps\powershell\test.json
 $objJson=Get-Content C:\Users\rumman\Desktop\DevOps\powershell\test.json | ConvertFrom-Json
 $objJson 
 $objJson.phoneNumber[0..1] 
+
+********************Creating PSObject to write to CSV***************************************************
+$a = knife search node 'platform:aix' -a name -a platform -a environment -F json
+$b = $a -Join [Environment]::NewLine | Out-String 
+$c = ConvertFrom-Json $b 
+$c 
+
+$d = @()
+
+$c.rows | % { $name = $_.psobject.properties.name; $d += $_.$name }
+
+for($i=0; $i -lt $d.Length; $i++){ 
+   $d[$i] | Export-Csv -Path C:\Users\rahmedsd\Desktop\aix_list.csv -NoTypeInformation -Append
+
+}
