@@ -269,6 +269,9 @@ HOMEPATH                       \Users\rahmedsd
 [string]$LastWrite 
 )   
   
+#Prompting for user input
+$variable__name = Read-Host -Prompt "Enter the prompt here"
+  
   
 ####What is a Provider?
 #A Windows Powershell provider allows any data store to be exposed like a file system as if it were a mounted drive. A .Net assembly that exposes the data 
