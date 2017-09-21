@@ -208,7 +208,7 @@ HOMEPATH                       \Users\rahmedsd
 #Regular Expression qualifiers : 
 #* must match zero or more times
 #+ must match one or more times 
-#? must match no more tha one time 
+#? must match no more than one time 
 #{n} must match n times 
 #{n,} must atleast n matches 
 #{n,m} must match atleast n times, but no more than m times 
