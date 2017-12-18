@@ -1,3 +1,4 @@
+#rundll32 sysdm.cpl,EditEnvironmentVariables  #Execute this command to open the system variable
 -begin
 HOME                           C:\Users\rahmedsd
 HOMEDRIVE                      C:
