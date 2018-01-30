@@ -271,7 +271,7 @@ HOMEPATH                       \Users\rahmedsd
 )   
   
 #Prompting for user input
-$variable__name = Read-Host -Prompt "Enter the prompt here"
+$variable_name = Read-Host -Prompt "Enter the prompt here"
   
   
 ####What is a Provider?
