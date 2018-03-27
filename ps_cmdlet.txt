@@ -44,13 +44,14 @@ HOMEPATH                       \Users\rahmedsd
 ##Powershell parameter is always preceded by a hyphen (-)
 ##The arguement is a value that can be provided for a parameter 
 
-##There are six common cmdlet verbs
+##There are seven common cmdlet verbs
 ##Get     #Queries a specific object
 ##Set     #Modifies the settings of an object
 ##Enable  #Enables a settings
 ##Disable #Disables a setting 
 ##New     #Creates a new instance of an item 
-##Remove  #Removes an instance of an item 
+##Remove  #Removes an instance of an item
+##Select   
 ##There are many other verbs  Add, Clear, Export, Format, Import, Invoke, etc
 ##Anything in the [] is optional 
 > Get-Process [[-name] string[]] [-ComponentName string[]] [-File VersionInfo] [-Module] [CommonParameters]
