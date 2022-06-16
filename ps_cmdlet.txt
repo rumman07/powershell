@@ -610,3 +610,8 @@ for($i=0; $i -lt $d.Length; $i++){
 
 #Deleting entire lines in a text file based on a partial string match with Windows Powershell 
 Get-Content -Path C:\Users\rahmedsd\Desktop\Chef_manage_reports\backup\09252017\redhatservers_not_checking_in.txt_resolution.txt | Where-Object {$_ -notmatch 'down'} | Set-Content .\out.txt 
+
+###AD sync cycle command
+Start-ADSyncSyncCycle -PolicyType delta
+###AD full sync cycle
+https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sync-feature-scheduler 
